@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block 'content' %}
+<main id="e-list">
+
+    <header class="row border-bottom header ptb">
+        <div class="col-sm-6">
+            <span class="fs-2"><i class="fa-solid fa-people-roof" id="employee" data-id="{{ employee.id }}"></i> {{ employee.name }}</span>
+            <p>{{ employee.description }}</p>
+        </div>
+        <div class="col-sm-6 d-flex align-items-center justify-content-end" id="action">
+            <span class="fs-2" data-bs-toggle="modal" data-bs-target="#t-add">
+                <i class="fa-solid fa-plus" style="margin-right: 10px;"> </i> Dodaj zadanie
+            </span>
+        </div>
+    </header>
+
+    <section class="tasks">
+        <h1>Nowe</h1>
+        <div id="t-new">
+            {% for task in tasks %}
+            <div class="row fs-3 task">
+                <span class="e-name col-10" data-bs-toggle="collapse" data-bs-target=".desc[data-id='{{ task.id }}']"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    {{ task.name }} <span class="badge bg-primary">Kategoria</span></h1>
+                </span>
+                <div class="e-actions col-2 d-flex align-items-center justify-content-center">
+                    <i class="fa-solid fa-check"></i>
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div class="col-10 collapse fs-5 desc" data-id="{{ task.id }}">
+                    <p>Przewidywana data wykoniania {{ task.prediction }} </p>
+                    <p> {{ task.prediction }} </p>
+                    {{ task.description }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="tasks">
+        <h1>Wykonane</h1>
+        <div id="t-done">
+            {% for task in tasks %}
+            <div class="row fs-3 task">
+                <span class="e-name col-10" data-bs-toggle="collapse" data-bs-target=".desc[data-id='{{ task.id }}']"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    {{ task.name }} <span class="badge bg-primary">Kategoria</span></h1>
+                </span>
+                <div class="e-actions col-2 d-flex align-items-center justify-content-center">
+                    <i class="fa-solid fa-check"></i>
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div class="col-10 collapse fs-5 desc" data-id="{{ task.id }}">
+                    <p>Przewidywana data wykoniania {{ task.prediction }} </p>
+                    <p> {{ task.prediction }} </p>
+                    {{ task.description }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+</main>
+<div class="modal" tabindex="-1" id="t-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dodaj zadanie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="auth-form" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock 'content' %}

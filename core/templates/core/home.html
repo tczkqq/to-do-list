@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block 'content' %}
+<main id="e-list">
+    <header class="row fs-2 border-bottom header ptb"> 
+        <div class="col-sm-6">
+            <i class="fa-solid fa-people-roof"></i> Lista pracowników
+        </div>
+        <div class="col-sm-6" id="action">
+            <span data-bs-toggle="modal" data-bs-target="#e-add">
+                <i class="fa-solid fa-plus" style="margin-right: 10px;"> </i> Dodaj pracownika
+            </span>
+        </div>
+
+    </header>
+    {% for employee in employees %}
+    <div class="employee row fs-3">
+        <span class="e-name col-10" data-bs-toggle="collapse" data-bs-target=".desc[data-id='{{ employee.id }}']" aria-expanded="false" aria-controls="collapseExample">
+            {{ employee.name }}
+        </span>
+        <div class="e-actions col-2 d-flex align-items-center justify-content-center">
+            <a href="{% url 'core:detail' id=employee.id%}"><i class="fa-solid fa-up-right-from-square"></i></a>
+        </div>
+        <div class="col-10 collapse fs-5 desc" data-id="{{ employee.id }}">
+            {{ employee.description }}
+        </div>
+    </div>
+    {% endfor %}
+</main>
+<div class="modal" tabindex="-1" id="e-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dodaj pracownika</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="auth-form" enctype="multipart/form-data">
+                <div class="modal-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock 'content' %}

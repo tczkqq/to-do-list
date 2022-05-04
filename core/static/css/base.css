@@ -1,0 +1,35 @@
+:root{
+    --main: #ff5200;
+}
+
+.m-color {
+    color: var(--main) !important;
+}
+
+.ptb {
+    padding-bottom: 20px;
+}
+
+.task {
+    cursor: pointer;
+}
+
+#action {
+    display: flex;
+    justify-content: end;
+}
+
+#action span:hover {
+    cursor: pointer;
+    color: #ff5200;
+}
+
+@media only screen and (max-width: 576px) {
+    .ptb {
+        padding-bottom: 40px;
+        padding-top: 20px;
+    }
+    #action {
+        justify-content: start;
+    }
+}
