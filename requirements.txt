@@ -1,3 +1,2 @@
 django
-celery
-django-rest-swagger
+djangorestframework

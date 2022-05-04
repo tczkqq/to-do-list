@@ -24,6 +24,7 @@ class Task(models.Model):
         choices=Status.choices,
         default=1
     )
+    # TODO: Category as manytomany
     category = models.IntegerField(choices=Category.choices, null=True)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     

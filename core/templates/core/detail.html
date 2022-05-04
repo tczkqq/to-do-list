@@ -17,45 +17,13 @@
     <section class="tasks">
         <h1>Nowe</h1>
         <div id="t-new">
-            {% for task in tasks %}
-            <div class="row fs-3 task">
-                <span class="e-name col-10" data-bs-toggle="collapse" data-bs-target=".desc[data-id='{{ task.id }}']"
-                    aria-expanded="false" aria-controls="collapseExample">
-                    {{ task.name }} <span class="badge bg-primary">Kategoria</span></h1>
-                </span>
-                <div class="e-actions col-2 d-flex align-items-center justify-content-center">
-                    <i class="fa-solid fa-check"></i>
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-                <div class="col-10 collapse fs-5 desc" data-id="{{ task.id }}">
-                    <p>Przewidywana data wykoniania {{ task.prediction }} </p>
-                    <p> {{ task.prediction }} </p>
-                    {{ task.description }}
-                </div>
-            </div>
-            {% endfor %}
+           
         </div>
     </section>
     <section class="tasks">
         <h1>Wykonane</h1>
         <div id="t-done">
-            {% for task in tasks %}
-            <div class="row fs-3 task">
-                <span class="e-name col-10" data-bs-toggle="collapse" data-bs-target=".desc[data-id='{{ task.id }}']"
-                    aria-expanded="false" aria-controls="collapseExample">
-                    {{ task.name }} <span class="badge bg-primary">Kategoria</span></h1>
-                </span>
-                <div class="e-actions col-2 d-flex align-items-center justify-content-center">
-                    <i class="fa-solid fa-check"></i>
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-                <div class="col-10 collapse fs-5 desc" data-id="{{ task.id }}">
-                    <p>Przewidywana data wykoniania {{ task.prediction }} </p>
-                    <p> {{ task.prediction }} </p>
-                    {{ task.description }}
-                </div>
-            </div>
-            {% endfor %}
+
         </div>
     </section>
     
