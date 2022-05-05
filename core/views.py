@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
-from pydantic import Json
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .serializers import TaskSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+import csv
 
 from .models import Task, Employee
 from .forms import AddEmployee
@@ -37,6 +36,35 @@ def detail_view(request, id):
     return render(request, 'core/detail.html', context)
 
 
+def export_csv(request, id):
+    # TODO: Export friendly names for status and category
+    employee = get_object_or_404(Employee, id=id)
+    tasks = Task.objects.filter(employee=employee)
+    response = HttpResponse('text/csv')
+    response['Content-Disposition'] = 'attachment; filename=' + employee.name + '.csv'
+    writer = csv.writer(response)
+    writer.writerow([
+        'ID', 
+        'Name', 
+        'Description', 
+        'Created', 
+        'Prediction',
+        'Status',
+        'Category'
+    ])
+    tsks = tasks.values_list(
+        'id',
+        'name',
+        'description',
+        'created',
+        'prediction',
+        'status',
+        'category'
+    )
+    for t in tsks:
+        writer.writerow(t)
+    return response
+
 
 # Api
 @api_view(['GET', 'POST'])
@@ -64,7 +92,6 @@ def tasks_list(request):
         return Response(tasks_serializer.data) 
     
     if request.method == 'POST':
-        print(request.data)
         serializer = TaskSerializer(data=request.data)
         employee_id = request.data.get('employee') 
         employee = Employee.objects.get(id=employee_id)
@@ -80,7 +107,6 @@ def task(request, id):
     if not task:
         return Response(status.HTTP_204_NO_CONTENT)
     
-    print(request.method)
     if request.method == 'PATCH':
         task.status = request.data.get('status')
         task.save()

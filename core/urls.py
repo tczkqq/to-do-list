@@ -7,6 +7,7 @@ app_name = "core"
 urlpatterns = [
     path('', views.home_view, name='home'),
     path('employee/<int:id>', views.detail_view, name='detail'),
+    path('employee/<int:id>/export', views.export_csv, name='export'),
     path('api/task/<int:id>', views.task, name='task'),
     path('api/tasks', views.tasks_list, name='tasks')
     

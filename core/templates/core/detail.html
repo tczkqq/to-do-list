@@ -12,7 +12,7 @@
                 <i class="fa-solid fa-plus" style="margin-right: 10px;"> </i> Dodaj zadanie
             </span>
         </div>
-        <div class="col">
+        <div class="col-sm-3">
             Filtrowanie 
             <select name="filter" id="filter" class="form-control"> 
                 <option value="-category">Kategoria (rosnąco)</option>
@@ -20,6 +20,9 @@
                 <option value="date">Data (rosnąco)</option>
                 <option value="-date">Data (malejąco)</option>
             </select>
+        </div>
+        <div class="col-sm-9 d-flex align-items-center justify-content-end e-actions">
+            <a href="/export" class="fs-1"><i class="fa-solid fa-file-export" title="Eksport do pliku csv"></i></a>
         </div>
     </header>
 

@@ -13,6 +13,11 @@
 .task {
     cursor: pointer;
 }
+
+.tasks {
+    margin-bottom: 30px;
+}
+
 .badge {
     margin-left: 10px;
 }
