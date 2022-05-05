@@ -10,6 +10,10 @@
     padding-bottom: 20px;
 }
 
+a {
+    color: black;
+}
+
 .task {
     cursor: pointer;
 }
@@ -28,12 +32,13 @@
     color: var(--main);
 }
 
-#action {
+.action {
     display: flex;
     justify-content: end;
 }
 
-#action span:hover {
+.action span:hover,
+#file-export:hover {
     cursor: pointer;
     color: var(--main);
 }
@@ -46,7 +51,11 @@
         padding-bottom: 40px;
         padding-top: 20px;
     }
-    #action {
+    .action {
         justify-content: start;
+    }
+    #filcon {
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }

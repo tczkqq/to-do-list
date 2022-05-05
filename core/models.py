@@ -17,7 +17,7 @@ class Task(models.Model):
         BACK = 2, 'BackEnd'
     
     name = models.CharField(max_length=50)
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=1000)
     created = models.DateTimeField(auto_now_add=True)
     prediction = models.DateField()
     status = models.IntegerField(

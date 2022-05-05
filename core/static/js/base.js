@@ -85,7 +85,10 @@ $(document).ready(function () {
         $(".e-check").unbind('click');
         $(".e-delete").unbind('click');
         $("#t-save").unbind('click');
+        $("#file-export").unbind('click');
         $('#filter').unbind('change')
+
+
         // TODO: remove set timeout
         $('.e-check').click( e => {
             $.ajax({
@@ -126,6 +129,9 @@ $(document).ready(function () {
 
         $('#filter').on('change', function () {
             getTasks();
+        });
+        $('#file-export').click( () => {
+            window.location.href += '/export';
         });
     }
 

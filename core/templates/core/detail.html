@@ -7,12 +7,12 @@
             <span class="fs-2"><i class="fa-solid fa-people-roof" id="employee" data-id="{{ employee.id }}"></i> {{ employee.name }}</span>
             <p>{{ employee.description }}</p>
         </div>
-        <div class="col-sm-6 d-flex align-items-center justify-content-end" id="action">
+        <div class="col-sm-6 action align-items-center" id="action">
             <span class="fs-2" data-bs-toggle="modal" data-bs-target="#t-add">
                 <i class="fa-solid fa-plus" style="margin-right: 10px;"> </i> Dodaj zadanie
             </span>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3" id="filcon">
             Filtrowanie 
             <select name="filter" id="filter" class="form-control"> 
                 <option value="-category">Kategoria (rosnąco)</option>
@@ -21,8 +21,8 @@
                 <option value="-date">Data (malejąco)</option>
             </select>
         </div>
-        <div class="col-sm-9 d-flex align-items-center justify-content-end e-actions">
-            <a href="/export" class="fs-1"><i class="fa-solid fa-file-export" title="Eksport do pliku csv"></i></a>
+        <div class="col-sm-9 action align-items-center e-actions fs-1">
+            <i class="fa-solid fa-file-export" id="file-export" title="Eksport do pliku csv"></i>
         </div>
     </header>
 
@@ -64,7 +64,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="t-save">Dodaj</button>
+                    <button type="button" class="btn btn-primary" id="t-save" data-bs-dismiss="modal">Dodaj</button>
                 </div>
             </form>    
         </div>
