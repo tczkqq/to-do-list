@@ -8,7 +8,7 @@ $(document).ready(function () {
             url: '/api/tasks',
             data: {
                 employee: employee,
-                sort: 'status'
+                sort: $('#filter').val()
             },
             success: (data) => {
                 displayTasks(data);
@@ -85,6 +85,7 @@ $(document).ready(function () {
         $(".e-check").unbind('click');
         $(".e-delete").unbind('click');
         $("#t-save").unbind('click');
+        $('#filter').unbind('change')
         // TODO: remove set timeout
         $('.e-check').click( e => {
             $.ajax({
@@ -121,6 +122,10 @@ $(document).ready(function () {
                     console.log(xhr, resp, text);
                 }
             })
+        });
+
+        $('#filter').on('change', function () {
+            getTasks();
         });
     }
 

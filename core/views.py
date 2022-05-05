@@ -48,11 +48,11 @@ def tasks_list(request):
             tasks = Task.objects.all()
             
         if 'sort' in request.query_params:
-            if request.query_params['sort'] == 'status':
-                tasks = tasks.order_by('status')
+            if request.query_params['sort'] == 'category':
+                tasks = tasks.order_by('category')
                 
-            if request.query_params['sort'] =='-status':
-                tasks = tasks.order_by('-status')
+            if request.query_params['sort'] =='-category':
+                tasks = tasks.order_by('-category')
                 
             if request.query_params['sort'] =='date':
                 tasks = tasks.order_by('prediction')
