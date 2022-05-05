@@ -13,6 +13,15 @@
 .task {
     cursor: pointer;
 }
+.badge {
+    margin-left: 10px;
+}
+.e-actions i {
+    margin-inline: 5px;
+}
+.e-actions i:hover {
+    color: var(--main);
+}
 
 #action {
     display: flex;
@@ -21,7 +30,7 @@
 
 #action span:hover {
     cursor: pointer;
-    color: #ff5200;
+    color: var(--main);
 }
 
 @media only screen and (max-width: 576px) {

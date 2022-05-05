@@ -9,6 +9,7 @@ from rest_framework import status
 from .models import Task, Employee
 from .forms import AddEmployee
 
+
 def home_view(request):
     if request.method == "POST":
         form = AddEmployee(request.POST)
@@ -26,7 +27,6 @@ def home_view(request):
     }
     return render(request, 'core/home.html',  context)
 
-
 def detail_view(request, id):
     employee = get_object_or_404(Employee, id=id)
     tasks = Task.objects.filter(employee=employee)
@@ -35,6 +35,8 @@ def detail_view(request, id):
         'tasks': tasks
     }
     return render(request, 'core/detail.html', context)
+
+
 
 # Api
 @api_view(['GET', 'POST'])
@@ -67,10 +69,24 @@ def tasks_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)    
     
-
-@api_view(['GET', 'POST', 'PUT', 'DEL'])
+    
+@api_view(['PATCH', 'DELETE'])
 def task(request, id):
-    task = Task.objects.fillter(id=id)
+    task = Task.objects.filter(id=id)
+    if not task:
+        return Response(status.HTTP_204_NO_CONTENT)
+    
+    if request.method == 'PUT':
+        if 'status' in request.query_params:    
+            task.status = request.query_params['status']
+            task.save()
+            return Response(status=status.HTTP_200_OK)
+        else: Response(status=status.HTTP_400_BAD_REQUEST)
+        
+    if request.method == 'DELETE':
+        task.delete()
+        return Response(status=status.HTTP_200_OK)
+        
     return Response()
 
         
