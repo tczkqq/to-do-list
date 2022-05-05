@@ -64,24 +64,27 @@ def tasks_list(request):
         return Response(tasks_serializer.data) 
     
     if request.method == 'POST':
+        print(request.data)
         serializer = TaskSerializer(data=request.data)
+        employee_id = request.data.get('employee') 
+        employee = Employee.objects.get(id=employee_id)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)    
+            serializer.save(employee=employee)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)    
     
     
 @api_view(['PATCH', 'DELETE'])
 def task(request, id):
-    task = Task.objects.filter(id=id)
+    task = Task.objects.get(id=id)
     if not task:
         return Response(status.HTTP_204_NO_CONTENT)
     
-    if request.method == 'PUT':
-        if 'status' in request.query_params:    
-            task.status = request.query_params['status']
-            task.save()
-            return Response(status=status.HTTP_200_OK)
-        else: Response(status=status.HTTP_400_BAD_REQUEST)
+    print(request.method)
+    if request.method == 'PATCH':
+        task.status = request.data.get('status')
+        task.save()
+        return Response(status=status.HTTP_200_OK)
         
     if request.method == 'DELETE':
         task.delete()

@@ -35,16 +35,26 @@
                 <h5 class="modal-title">Dodaj zadanie</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" class="auth-form" enctype="multipart/form-data">
+            <form class="form-group" id="t-form">
                 <div class="modal-body">
-                    {% csrf_token %}
-                    {{ form.as_p }}
+                    <input class="form-control" type="text" name="name" placeholder="Tytuł">
+                    <textarea class="form-control" name="desciprtion" placeholder="Opis"> </textarea>
+                    <input class="form-control" type="date" name="prediction" placeholder="Przewidywana data wykonania">
+                    <input type="hidden" name="status" value="1">
+                    <select class="form-control" name="category">
+                        <option value="1">FrontEnd</option>
+                        <option value="2">BackEnd</option>
+                    </select>
+                    <input type="hidden" name="employee" value="{{ employee.id }}">
+                    <div class="invalid-feedback">
+                        Niepoprawne dane
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                    <button type="button" class="btn btn-primary" id="t-save">Dodaj</button>
                 </div>
-            </form>
+            </form>    
         </div>
     </div>
 </div>

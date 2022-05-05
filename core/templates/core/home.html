@@ -34,6 +34,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" class="auth-form" enctype="multipart/form-data">
+                <!-- TODO: Style form -->
                 <div class="modal-body">
                         {% csrf_token %}
                         {{ form.as_p }}

@@ -2,7 +2,7 @@ $(document).ready(function () {
     var host = $(location).attr('host'); 
     var employee = $('#employee').data('id');
     var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
-
+  
     function getTasks() {
         $.ajax({
             url: '/api/tasks',
@@ -12,8 +12,11 @@ $(document).ready(function () {
             },
             success: (data) => {
                 displayTasks(data);
-                setupEventListeners();
+                
             },
+            error: () => {
+                displayTasks(data);
+            }
         });
     }
 
@@ -66,14 +69,22 @@ $(document).ready(function () {
             html += template[6];
             html += e['id'];
             html += template[7];
-            html += e['prediction'];
+            html += e['id'];
             html += template[8];
+            html += e['prediction'];
+            html += template[9];
             html += e['description'];
+            html += template[10];
             container.append(html);
+            
         });
+        setupEventListeners();
     }
 
     function setupEventListeners() {
+        $(".e-check").unbind('click');
+        $(".e-delete").unbind('click');
+        $("#t-save").unbind('click');
         // TODO: remove set timeout
         $('.e-check').click( e => {
             $.ajax({
@@ -88,9 +99,29 @@ $(document).ready(function () {
                 url: '/api/task/' + $(e.target).attr('data-id'),
                 type: "DELETE",
                 headers: { "X-CSRFToken": $crf_token },
-                success: setTimeout(() => { getTasks(); }, 1000)
+                success: setTimeout(() => { getTasks();}, 1000)
             });
         })
+        $("#t-save").click(e => {
+            let formInputs = $("#t-form :input");
+            $.post({
+                url: '/api/tasks',
+                dataType: "json",
+                headers: { "X-CSRFToken": $crf_token },
+                data: {
+                    "name": formInputs[0].value,
+                    "description": formInputs[1].value,
+                    "prediction": formInputs[2].value,
+                    "status": formInputs[3].value,
+                    "category": formInputs[4].value,
+                    "employee": formInputs[5].value
+                },
+                success: setTimeout(() => { getTasks(); }, 1000),
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+        });
     }
 
     getTasks();
