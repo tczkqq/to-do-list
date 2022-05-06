@@ -98,6 +98,7 @@ def tasks_list(request):
         if serializer.is_valid():
             serializer.save(employee=employee)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(request.data)
         return Response(status=status.HTTP_400_BAD_REQUEST)    
     
     

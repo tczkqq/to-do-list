@@ -12,11 +12,7 @@ $(document).ready(function () {
             },
             success: (data) => {
                 displayTasks(data);
-                
             },
-            error: () => {
-                displayTasks(data);
-            }
         });
     }
 
@@ -76,8 +72,8 @@ $(document).ready(function () {
             html += e['description'];
             html += template[10];
             container.append(html);
-            
         });
+
         setupEventListeners();
     }
 
@@ -88,12 +84,12 @@ $(document).ready(function () {
         $("#file-export").unbind('click');
         $('#filter').unbind('change')
 
-
         // TODO: remove set timeout
         $('.e-check').click( e => {
             $.ajax({
                 url: '/api/task/' + $(e.target).attr('data-id'),
                 type: "PATCH",
+                headers: { "X-CSRFToken": $crf_token },
                 data: {'status': 2},
                 success: setTimeout(() => { getTasks(); }, 1000)
             });
@@ -120,10 +116,14 @@ $(document).ready(function () {
                     "category": formInputs[4].value,
                     "employee": formInputs[5].value
                 },
-                success: setTimeout(() => { getTasks(); }, 1000),
-                error: function (xhr, resp, text) {
-                    console.log(xhr, resp, text);
-                }
+                success: () => {
+                    setTimeout(() => { getTasks();}, 1000);
+                    $('.invalid-feedback').hide()
+                    $('#t-add').modal('hide');
+                    $('.invalid-feedback').hide();
+                    clearFrom();
+                },
+                error: $('.invalid-feedback').show()
             })
         });
 
@@ -134,7 +134,13 @@ $(document).ready(function () {
             window.location.href += '/export';
         });
     }
+    function clearFrom() {
+        let formInputs = $("#t-form :input")
+        formInputs[0].value = "";
+        formInputs[1].value = "";
+        formInputs[2].value = "";
 
+    }
     getTasks();
 
 });

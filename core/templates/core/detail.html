@@ -47,24 +47,25 @@
                 <h5 class="modal-title">Dodaj zadanie</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            {% csrf_token %}
             <form class="form-group" id="t-form">
                 <div class="modal-body">
-                    <input class="form-control" type="text" name="name" placeholder="Tytuł">
-                    <textarea class="form-control" name="desciprtion" placeholder="Opis"> </textarea>
-                    <input class="form-control" type="date" name="prediction" placeholder="Przewidywana data wykonania">
-                    <input type="hidden" name="status" value="1">
-                    <select class="form-control" name="category">
+                    <input class="form-control" type="text" name="name" placeholder="Tytuł" required>
+                    <textarea class="form-control" name="desciprtion" placeholder="Opis" required> </textarea>
+                    <input class="form-control" type="date" name="prediction" placeholder="Przewidywana data wykonania" required>
+                    <input type="hidden" name="status" value="1" required>
+                    <select class="form-control" name="category" required>
                         <option value="1">FrontEnd</option>
                         <option value="2">BackEnd</option>
                     </select>
-                    <input type="hidden" name="employee" value="{{ employee.id }}">
+                    <input type="hidden" name="employee" value="{{ employee.id }}" required>
                     <div class="invalid-feedback">
-                        Niepoprawne dane
+                        Niepoprawne dane (Wszystkie pola są obowiązkowe)
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="t-save" data-bs-dismiss="modal">Dodaj</button>
+                    <button type="button" class="btn btn-primary" id="t-save">Dodaj</button>
                 </div>
             </form>    
         </div>
